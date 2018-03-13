@@ -37,11 +37,16 @@ int main(){
     int yMax,xMax;
 	getmaxyx(stdscr,yMax,xMax);
 	start_color();
+    init_pair(6,COLOR_WHITE,COLOR_BLUE);
     init_pair(4,COLOR_BLACK,COLOR_RED);
     init_pair(5,COLOR_BLUE,COLOR_GREEN);
     attrset(COLOR_PAIR(4));
     printw("LAB_6 Manrique Amador");
+    move(5/2,10);
+    attrset(COLOR_PAIR(6));
+    printw("COLOCAR BOMBAS CON LA BARRA ESPACEADORA");
 	move(5,20);
+    attrset(COLOR_PAIR(4));
     printw("Ingrese el nombre del escenario: ");
     string nombre;
 	stringstream str;
