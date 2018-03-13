@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Invisible::Invisible(){}
+Invisible::Invisible():Escenario("asdsadas"){}
 
 Invisible::Invisible (string nombre, int numeroVidas , int tipoBomba) : Escenario(nombre){
     this->numeroVidas = numeroVidas;

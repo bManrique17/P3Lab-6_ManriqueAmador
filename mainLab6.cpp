@@ -90,7 +90,8 @@ int main(){
 				//highlight = 2;
 				break;
 		}
-        
+    printw("%d->",highlight);
+        refresh();
 		if(choice == 10)
 			break;		
 		
@@ -100,15 +101,15 @@ int main(){
 	endwin();
     start_color();
     int opcion = 0,tipo = 0;;
-
-    Escenario* mapa;
-    switch(choice){
-        case 1:{
+    
+    Escenario* mapa = NULL;
+    switch(highlight){
+        case 0:{
             mapa = new Tren();            
             tipo = 1;
         }
         break;
-        case 2:{
+        case 1:{
             mapa = new Invisible();
             tipo = 2;
         }
@@ -130,6 +131,8 @@ int main(){
     int tipoBomba = 1;
     int alcance = 2;
 
+    
+
     if(tipo==1)                    
         imprimirMapaTREN(mapa);
     else
@@ -148,6 +151,8 @@ int main(){
             case 119:{//w
                 futX = jugador->getX()-1;   
                 futY = jugador->getY();
+
+
 
                 if(futX<0 || futX>10 || futY<0 || futY>12)
                     break;
@@ -257,7 +262,10 @@ int main(){
             }
             
         }//final switch
-        
+                
+        if(tipo==1)
+            Vagon(jugador,mapa);
+
         bool b1 = false,b2 = false,b3 = false,b4 = false;
         for(int i=0 ; i<11 ; i++){
             for(int j=0 ; j<13 ; j++){            
@@ -278,19 +286,32 @@ int main(){
                 }                                
             }
         }
-        if(b1)
-            moverBoot(boot1,mapa);
+        if(b1){
+            if(tipo==1)
+                Vagon(boot1,mapa);
+            moverBoot(boot1,mapa);            
+        }
         
-        if(b2)
+        if(b2){
+            if(tipo==1)
+                Vagon(boot2,mapa);
             moverBoot(boot2,mapa);
+        }
         
-        if(b3)
+        if(b3){
+            if(tipo==1)
+                Vagon(boot3,mapa);
             moverBoot(boot3,mapa);
+        }
         
-        if(b4)
+        if(b4){
+            if(tipo==1)
+                Vagon(boot4,mapa);
             moverBoot(boot4,mapa);
+        }
 
         explotarBombas(mapa);
+
         if(tipo==1)                    
             imprimirMapaTREN(mapa);
         else
@@ -302,10 +323,14 @@ int main(){
                 senuelo=17;
             break;
             case 2:
-                //gano xd
+                move(0,0);
+                printw("HA GANADO!");
+                getch();
             break;
             case 3:
-                //pierde xd
+                move(0,0);
+                printw("HA PERDIDO :(");
+                getch();
             break;
         }
         if(senuelo!=17)
@@ -534,51 +559,71 @@ void moverBoot(Jugador* jugador, Escenario* mapa){
             }
         }
         break;
-    }
-    if(bombaActualb != NULL && mapa->getMatriz()[bombaActualb->getX()][bombaActualb->getY()] == NULL){
-        mapa->setItem(bombaActualb,bombaActualb->getX(),bombaActualb->getY());
-        bombaActualb = NULL;
-    }
-
-    if(ponerBomba == 1){
-        int xd = 1;
-        switch(xd){
-            case 1:{
-                bombaActualb = new Normal(jugador->getX(),jugador->getY());                        
-            }
-            break;
-            case 2:{
-                bombaActualb = new Espina(jugador->getX(),jugador->getY());
-            }
-            break;
-            case 3:{
-                bombaActualb = new V(jugador->getX(),jugador->getY());
-            }
-            mapa->getMatriz()[bombaActualb->getX()][bombaActualb->getY()] = bombaActualb;
-            break;
         }
-            
+        if(bombaActualb != NULL && mapa->getMatriz()[bombaActualb->getX()][bombaActualb->getY()] == NULL){
+            mapa->setItem(bombaActualb,bombaActualb->getX(),bombaActualb->getY());
+            bombaActualb = NULL;
+        }
+
+        if(ponerBomba == 1){
+            int xd = 1;
+            switch(xd){
+                case 1:{
+                    bombaActualb = new Normal(jugador->getX(),jugador->getY());                        
+                }
+                break;
+                case 2:{
+                    bombaActualb = new Espina(jugador->getX(),jugador->getY());
+                }
+                break;
+                case 3:{
+                    bombaActualb = new V(jugador->getX(),jugador->getY());
+                }
+                mapa->getMatriz()[bombaActualb->getX()][bombaActualb->getY()] = bombaActualb;
+                break;
+            }
+                
+        }
     }
 
     void Vagon(Jugador* jug,Escenario* mapa){
-        mapa->setItem(jug,8,4-1);
-        jug->setX(8);
-        jug->setY(4-1);
-        for(int i=0;i<4;i++){
-            mapa->setItem(NULL,2,4+i);
-        }
-        for(int i=0;i<4;i++){
-            mapa->setItem(NULL,8,4+i);
-        }
-        for(int i=0;i<6;i++){
-            mapa->setItem(NULL,2+i,4);
+        if(jug->getX()==2 && jug->getY()==2){
+            mapa->setItem(jug,8,2-1);
+            jug->setX(8);
+            jug->setY(2-1);
+            for(int i=0;i<6;i++){
+                mapa->setItem(NULL,2,2+i);
+            }
+            for(int i=0;i<6;i++){
+                mapa->setItem(NULL,8,2+i);
+            }
+            for(int i=0;i<4;i++){
+                mapa->setItem(NULL,3+i,8);
+            }
+        }else{
+            if(jug->getX()==8 && jug->getY()==2){
+                mapa->setItem(jug,2,2-1);
+                jug->setX(2);
+                jug->setY(2-1);
+                for(int i=0;i<6;i++){
+                    mapa->setItem(NULL,2,2+i);
+                }
+                for(int i=0;i<6;i++){
+                    mapa->setItem(NULL,8,2+i);
+                }
+                for(int i=0;i<4;i++){
+                    mapa->setItem(NULL,3+i,8);
+                }
+            }else{
+
+            }        
         }
     }
 
     void imprimirMapaTREN(Escenario* mapa){
         init_pair(1,COLOR_YELLOW,COLOR_WHITE);
         init_pair(2,COLOR_RED,COLOR_CYAN);   
-        init_pair(3,COLOR_MAGENTA,COLOR_MAGENTA);
+        init_pair(3,COLOR_WHITE,COLOR_MAGENTA);
 
         for(int i=0 ; i<11 ; i++){
             for(int j=0 ; j<13 ; j++){
@@ -598,8 +643,8 @@ void moverBoot(Jugador* jugador, Escenario* mapa){
 
         for(int i=0 ; i<11 ; i++){
             for(int j=0 ; j<13 ; j++){
-                if(   (j>1&&j<5&&i==2) ||
-                        (j>1&&j<5&&i==8) ||
+                if(   (j>1&&j<8&&i==2) ||
+                        (j>1&&j<8&&i==8) ||
                         (i>2&&i<8&&j==8) )                                            
                     attrset(COLOR_PAIR(3));
                 else
@@ -632,5 +677,5 @@ void moverBoot(Jugador* jugador, Escenario* mapa){
         refresh();
 
     }   
-}
+
 

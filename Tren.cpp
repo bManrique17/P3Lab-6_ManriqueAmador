@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Tren::Tren() : Escenario(){}
+Tren::Tren() : Escenario("adsfasd"){}
 
 Tren::Tren(string nombre) : Escenario(nombre){    
     vagonX = 2;
