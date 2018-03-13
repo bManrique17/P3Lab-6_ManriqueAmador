@@ -11,6 +11,7 @@ class Invisible : public Escenario{
         int numeroVidas;
         int tipoBomba;
     public:
+        Invisible();
         Invisible (string, int , int);
         void setNumeroVidas(int);
         void setTipoBomba(int);

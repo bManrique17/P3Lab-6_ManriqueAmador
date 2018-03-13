@@ -2,7 +2,7 @@
 #include "Item.h"
 
 Bomba::Bomba(int x, int y) : Item(x,y){
-    contadorExplosion = 0;
+    contadorExplosion = 3;
 }
 
 int Bomba::getContadorExplosion(){

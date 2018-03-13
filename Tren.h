@@ -7,12 +7,20 @@ using namespace std;
 
 class Tren : public Escenario{
     private:
-        string posicionActualVagon;        
+        int vagonX;    
+        int vagonY;
     public:
         Tren();
-        Tren(string);        
-        string getPosicionActualVagon();
-        void setPosicionActualVagon(string);        
+
+        Tren(string);
+            
+        int getVagonX();    
+
+        int getVagonY();
+
+        void setVagonX(int);
+
+        void setVagonY(int);
 };
 
 #endif

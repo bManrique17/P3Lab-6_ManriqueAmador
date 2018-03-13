@@ -6,17 +6,27 @@ using namespace std;
 
 Tren::Tren() : Escenario(){}
 
-Tren::Tren(string nombre) : Escenario(nombre){
-    posicionActualVagon = "4,2";
+Tren::Tren(string nombre) : Escenario(nombre){    
+    vagonX = 2;
+    vagonY = 4;
 }
 
-string Tren::getPosicionActualVagon(){
-    return posicionActualVagon;
+int Tren::getVagonX(){
+    return vagonX;
 }
 
-void Tren::setPosicionActualVagon(string pos){
-    posicionActualVagon = pos;
+int Tren::getVagonY(){
+    return vagonY;
 }
+
+void Tren::setVagonX(int x){
+    vagonX = x;
+}
+
+void Tren::setVagonY(int y){
+    vagonY = y;
+}
+
         
       
   

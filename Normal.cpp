@@ -10,5 +10,7 @@ Normal::Normal (int x, int y):Bomba(x,y){
 
 int Normal::getAlcance(){
     //generar alatorio
+    //BORRAR
+    alcance = 3;
     return alcance;
 }
