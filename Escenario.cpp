@@ -1,11 +1,12 @@
 #include "Escenario.h"
 #include <string>
-#include "Item.h"
 #include <iostream>
 
 using namespace std;
 
-Escenario::Escenario(){}
+Escenario::Escenario(){
+   
+}
 
 Escenario::Escenario (string nombre){
         this->nombre = nombre;
@@ -13,9 +14,18 @@ Escenario::Escenario (string nombre){
         for(int i=0 ; i<11 ; i++){
             matriz[i] = new Item*[13];
             for(int j = 0 ; j<13 ; j++){
-                matriz[i][j] = NULL;
+                if(i%2 != 0 && j%2 != 0)
+                    matriz[i][j] = NULL;
             }
         }
+}
+
+Item* Escenario::getItem(int x,int y){
+    return matriz[x][y];
+}
+
+void Escenario::setItem(Item* item,int x,int y){
+    matriz[x][y] = item;
 }
 
 void Escenario::setNombre( string nombre ){

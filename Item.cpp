@@ -22,3 +22,7 @@ void Item::setX(int _x){
 void Item::setY(int _y){
     y = _y;
 }
+
+Item::~Item(){
+    
+}
